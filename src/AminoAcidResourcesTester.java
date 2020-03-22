@@ -2,9 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
-import org.junit.jupiter.api.Test;
 
-class AminoAcidResourcesTester{
+public class AminoAcidResourcesTester{
 
   @Test
   public void allCodons(){
