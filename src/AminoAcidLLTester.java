@@ -25,4 +25,46 @@ public class AminoAcidLLTester {
         AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
     }
 
+    @Test
+    public void test_3() {
+        String inCodon = "GCUACGGAGCUUCHHAGCUAG";
+        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    }
+
+    @Test
+    public void test_4() {
+        String inCodon = "GCUACGGAGCUUCHHAGCUAG";
+        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    }
+
+    @Test
+    public void test_5() {
+        String inCodon = "GCUACGGAGCUUCHHAGCUAG";
+        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    }
+
+    @Test
+    public void test_6() {
+        String inCodon = "GCUACGGAGCUUCHHAGCUAG";
+        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    }
+
+    @Test
+    public void test_8() {
+        String inCodon = "GCUACGGAGCUUCHHAGCUAG";
+        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    }
+
+    @Test
+    public void test_9() {
+        String inCodon = "GCUACGGAGCUUCHHAGCUAG";
+        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    }
+
+    @Test
+    public void test_10() {
+        String inCodon = "GCUACGGAGCUUCHHAGCUAG";
+        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    }
+
 }

@@ -5,7 +5,7 @@ class AminoAcidLL{
 
     // Testing one string of codons
     String inCodon = "CCGUUGGCACUGUUG";
-    //AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
     //AminoAcidLL.createFromRNASequence(inCodon);
 
 
@@ -27,9 +27,6 @@ class AminoAcidLL{
     //AminoAcidLL.sort(listToBeSorted);
     //AminoAcidLL.createFromRNASequence(inCodon).isSorted();
     //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).isSorted());
-
-
-
   }
 
   // Creating a sorted node and head node to aid when sorting the linked list
@@ -137,14 +134,22 @@ class AminoAcidLL{
   /* Recursive method that finds the differences in **Amino Acid** counts. 
    * the list *must* be sorted to use this method */
   public int aminoAcidCompare(AminoAcidLL inList){
-    return 0;
+
+      // Sorting the given linked list
+      sort(inList);
+
+      return 0;
   }
 
   /********************************************************************************************/
   /* Same as above, but counts the codon usage differences
    * Must be sorted. */
   public int codonCompare(AminoAcidLL inList){
-    return 0;
+
+      // Sorting the given linked list
+      sort(inList);
+
+      return 0;
   }
 
 
@@ -158,8 +163,12 @@ class AminoAcidLL{
     // Initializing a counter variable
     //int j = 0;
 
+      //System.out.print(next.aminoAcid);
+      //System.out.print(next.next.aminoAcid);
+
+
     // Base Case: If the pointer is null, return the array
-    if(next == null){
+    if(next == null || next.next == null){
 
       j = 0;
       next = null;
@@ -179,7 +188,10 @@ class AminoAcidLL{
   /********************************************************************************************/
   /* Recursively returns the total counts of amino acids in the order that they are in in the linked list. */
   public int[] aminoAcidCounts(){
-    return new int[]{};
+
+      // Base Case
+
+      return new int[]{};
   }
 
 
@@ -187,20 +199,27 @@ class AminoAcidLL{
   /* recursively determines if a linked list is sorted or not */
   public boolean isSorted(){
 
-    // Base Case: If head is empty
-    if(next  == null) {
-      return true;
-    }
+      //System.out.print(head.aminoAcid);
 
-    // Traversing the linked list until the last node is reached
-    for(sorted = next; sorted.next != null; sorted = sorted.next) {
+      // Resetting the head back to the first node
+      head = next;
+      System.out.print(head.aminoAcid);
 
-      // If current node is smaller than or equal to the next node...
-      if(sorted.aminoAcid <= sorted.next.aminoAcid) {
-        return false;
+      // Base Case
+      if(head == null || head.next == null){
+          return true;
       }
-    }
-    return true;
+
+      // Checking the first two node and recursively traversing through the rest
+      if(head.aminoAcid > head.next.aminoAcid){
+          return false;
+      }
+
+      head = head.next;
+
+      isSorted();
+
+      return true;
   }
 
 
