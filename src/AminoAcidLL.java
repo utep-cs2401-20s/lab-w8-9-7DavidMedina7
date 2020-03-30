@@ -3,37 +3,55 @@ import java.util.Arrays;
 class AminoAcidLL{
   public static void main(String[] args){
 
-    // Testing one string of codons
+    // ** TESTING CODON SEQUENCE #1: CCGUUGGCACUGUUG **
     String inCodon = "CCGUUGGCACUGUUG";
-    AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    //AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
     //AminoAcidLL.createFromRNASequence(inCodon);
 
-
-    //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidList();
+    // ** Testing totalCounts() method **
+    //AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    //AminoAcidLL.createFromRNASequence(inCodon);
+    //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).totalCount());
 
     // ** Testing aminoAcidList() method **
     //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidList();
     //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).aminoAcidList());
 
+    // ** Testing aminoAcidCounts() method **
+    //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts();
+    System.out.print(Arrays.toString(AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts()));
 
     // ** Testing the isSorted() method **
     //AminoAcidLL.createFromRNASequence(inCodon).isSorted();
     //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).isSorted());
 
-
-    // ** Testing the sorting method **
+    // ** Testing the sort() method **
     //AminoAcidLL listToBeSorted = AminoAcidLL.createFromRNASequence(inCodon);
     //printList(sort(listToBeSorted));
-    //AminoAcidLL.sort(listToBeSorted);
+    //System.out.print(AminoAcidLL.sort(listToBeSorted).isSorted());
     //AminoAcidLL.createFromRNASequence(inCodon).isSorted();
-    //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).isSorted());
+
+    // ** Testing the getLinkedListLength() method **
+    //System.out.print(AminoAcidLL.getLinkedListLength(AminoAcidLL.createFromRNASequence(inCodon)));
+
   }
 
-  // Creating a sorted node and head node to aid when sorting the linked list
+  // ** Creating a sorted node and head node to aid when sorting the linked list **
   public static AminoAcidLL sorted;
   public static AminoAcidLL head;
-  public char[] aminoAcidArray = new char[7];
+
+  // ** Creating a tempHead and a iterator node to aid with aminoAcidList() and aminoAcidCounts() methods **
+  public static AminoAcidLL tempHead;
+  public static  AminoAcidLL iterator;
+
+  // ** Creating a char array and a counter to aid the aminoAcidList() method **
+  public char[] aminoAcidArray;
+  public boolean initialize = true;
   public int j = 0;
+
+  // ** Creating a int array and a counter and utilizing the initialize variable from the aminoAcidList() to aid the aminoAcidCounts() method **
+  public int[] aminoAcidCountsArray;
+  public int i = 0;
 
   // Attributes that make up a AminoAcidLL
   char aminoAcid;
@@ -77,6 +95,7 @@ class AminoAcidLL{
       // Else create a new node
     }else {
       next = new AminoAcidLL(inCodon);
+      addCodon(inCodon);
     }
   
   }
@@ -157,31 +176,39 @@ class AminoAcidLL{
   /* Recursively returns the total list of amino acids in the order that they are in in the linked list. */
   public char[] aminoAcidList(){
 
-    // Creating a new character array to store amino acids
-    //char[] aminoAcidArray = new char[7];
-
-    // Initializing a counter variable
-    //int j = 0;
-
-      //System.out.print(next.aminoAcid);
-      //System.out.print(next.next.aminoAcid);
-
-
-    // Base Case: If the pointer is null, return the array
-    if(next == null || next.next == null){
-
-      j = 0;
-      next = null;
-      return null;
-
-      // Store aminoAcid from linked list into aminoAcidArray
-    } else {
-      aminoAcidArray[j] = aminoAcid;
-      j++;
-      next = next.next;
-      aminoAcidList();
+    //  If initialize variable is true, initialize the array depending to the length of the linked list
+    if(initialize) {
+      aminoAcidArray = new char[getLinkedListLength(tempHead)];
     }
 
+    // Base Case: if tempHead is equal to NULL stop recursion
+    if(tempHead == null) {
+
+      // Reset counter back to 0
+      j = 0;
+
+      // Assign node back to its head
+      tempHead = iterator;
+
+      return null;
+
+    }else {
+
+      // Store the current index of the array with the current amino acid of the linked list
+      aminoAcidArray[j] = tempHead.aminoAcid;
+
+      // Increment counter
+      j++;
+
+      // Assign the pointer to its next node in the linked list
+      tempHead = tempHead.next;
+
+      // Assign the initialize variable to false
+      initialize = false;
+
+      // Make a recursive call
+      aminoAcidList();
+    }
     return aminoAcidArray;
   }
 
@@ -189,9 +216,41 @@ class AminoAcidLL{
   /* Recursively returns the total counts of amino acids in the order that they are in in the linked list. */
   public int[] aminoAcidCounts(){
 
-      // Base Case
+    //  If initialize variable is true, initialize the array depending to the length of the linked list
+    if(initialize) {
+      aminoAcidCountsArray = new int[getLinkedListLength(tempHead)];
+    }
 
-      return new int[]{};
+    // Base Case: if tempHead is equal to NULL stop recursion
+    if(tempHead == null) {
+
+      // Reset counter back to 0
+      i = 0;
+
+      // Assign node back to its head
+      tempHead = iterator;
+
+      return null;
+
+    }else {
+
+      // Store the current index of the array with the current amino acid of the linked list
+      aminoAcidCountsArray[i] = tempHead.totalCount();
+
+      // Increment counter
+      i++;
+
+      // Assign the pointer to its next node in the linked list
+      tempHead = tempHead.next;
+
+      // Assign the initialize variable to false
+      initialize = false;
+
+      // Make a recursive call
+      aminoAcidCounts();
+    }
+    return aminoAcidCountsArray;
+
   }
 
 
@@ -199,26 +258,27 @@ class AminoAcidLL{
   /* recursively determines if a linked list is sorted or not */
   public boolean isSorted(){
 
-      //System.out.print(head.aminoAcid);
+      // Base Case: if current pointer is equal null or the next pointer is equal to null
+      if(tempHead == null || tempHead.next == null){
 
-      // Resetting the head back to the first node
-      head = next;
-      System.out.print(head.aminoAcid);
-
-      // Base Case
-      if(head == null || head.next == null){
+          // The linked list is sorted
           return true;
       }
 
       // Checking the first two node and recursively traversing through the rest
-      if(head.aminoAcid > head.next.aminoAcid){
+      if(tempHead.aminoAcid > tempHead.next.aminoAcid){
+
+          // The linked list is not sorted
           return false;
       }
 
-      head = head.next;
+      // Setting current pointer to the next pointer
+      tempHead = tempHead.next;
 
+      // Making a recursive call
       isSorted();
 
+      // The linked list is sorted
       return true;
   }
 
@@ -232,15 +292,28 @@ class AminoAcidLL{
 
     // Creating a head node
     AminoAcidLL head = new AminoAcidLL(inSequence.substring(0,3));
-    head.addCodon(inSequence.substring(0,3));
+    tempHead = head;
+
+    // If inSequence is equal a '*' meaning 'STOP,' don't go into loop
+    if(inSequence.substring(0, 3).charAt(0) == '*') {
+
+      // Adding codons..
+      head.addCodon(inSequence.substring(0,3));
+      ifStop = false;
+
+      // Adding codons...
+    } else{
+      head.addCodon(inSequence.substring(0, 3));
+    }
 
     // Loop to go through the entire inSequence string and add the codon accordingly
     for(int i = 3; i < inSequence.length() - 2 && ifStop; i += 3) {
 
-      head.addCodon(inSequence.substring(i, i + 3));
-
       // If inSequence is equal a '*' meaning 'STOP,' exit loop
       if(inSequence.charAt(i) == '*') {
+
+        // Adding to the linked list
+        head.addCodon(inSequence.substring(i, i + 3));
         ifStop = false;
 
         // Else add codon at head for the next three characters in the inSequence string
@@ -248,7 +321,7 @@ class AminoAcidLL{
         head.addCodon(inSequence.substring(i, i + 3));
       }
     }
-    
+    //tempHead = head;
     return head;
   }
 
@@ -312,6 +385,18 @@ class AminoAcidLL{
 
       head = head.next;
     }
+  }
+
+  // Function to get the length of the linked list
+  public static int getLinkedListLength(AminoAcidLL head) {
+
+    // Base case: if head is equal to null
+    if(head == null) {
+      return 0;
+    }
+
+    // Count is 1 plus the rest of the list (recursive calls)
+    return 1 + getLinkedListLength(head.next);
   }
 
 }
