@@ -19,7 +19,7 @@ class AminoAcidLL{
 
     // ** Testing aminoAcidCounts() method **
     //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts();
-    System.out.print(Arrays.toString(AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts()));
+    //System.out.print(Arrays.toString(AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts()));
 
     // ** Testing the isSorted() method **
     //AminoAcidLL.createFromRNASequence(inCodon).isSorted();
@@ -250,9 +250,7 @@ class AminoAcidLL{
       aminoAcidCounts();
     }
     return aminoAcidCountsArray;
-
   }
-
 
   /********************************************************************************************/
   /* recursively determines if a linked list is sorted or not */
@@ -282,7 +280,6 @@ class AminoAcidLL{
       return true;
   }
 
-
   /********************************************************************************************/
   /* Static method for generating a linked list from an RNA sequence */
   public static AminoAcidLL createFromRNASequence(String inSequence){
@@ -292,6 +289,8 @@ class AminoAcidLL{
 
     // Creating a head node
     AminoAcidLL head = new AminoAcidLL(inSequence.substring(0,3));
+
+    // Saving our head to tempHead variable for future usage
     tempHead = head;
 
     // If inSequence is equal a '*' meaning 'STOP,' don't go into loop
@@ -324,7 +323,6 @@ class AminoAcidLL{
     //tempHead = head;
     return head;
   }
-
 
   /********************************************************************************************/
   /* sorts a list by amino acid character*/
