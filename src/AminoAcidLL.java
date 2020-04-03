@@ -5,7 +5,9 @@ class AminoAcidLL{
 
     // ** TESTING CODON SEQUENCE #1: CCGUUGGCACUGUUG **
     String inCodon = "CCGUUGGCACUGUUG";
-    //AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+    String inCodon2 = "CCGUUGGCACUGUUG";
+    String inCodon3 = "GCUACGGAGCUUCGGAGCUAG";
+    //AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon3));
     //AminoAcidLL.createFromRNASequence(inCodon);
 
     // ** Testing totalCounts() method **
@@ -15,7 +17,7 @@ class AminoAcidLL{
 
     // ** Testing aminoAcidList() method **
     //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidList();
-    //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).aminoAcidList());
+    //System.out.print(AminoAcidLL.createFromRNASequence(inCodon3).aminoAcidList());
 
     // ** Testing aminoAcidCounts() method **
     //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts();
@@ -26,13 +28,34 @@ class AminoAcidLL{
     //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).isSorted());
 
     // ** Testing the sort() method **
-    //AminoAcidLL listToBeSorted = AminoAcidLL.createFromRNASequence(inCodon);
+    //AminoAcidLL listToBeSorted = AminoAcidLL.createFromRNASequence(inCodon3);
     //printList(sort(listToBeSorted));
-    //System.out.print(AminoAcidLL.sort(listToBeSorted).isSorted());
+    //System.out.print(AminoAcidLL.sort(listToBeSorted));
     //AminoAcidLL.createFromRNASequence(inCodon).isSorted();
 
     // ** Testing the getLinkedListLength() method **
     //System.out.print(AminoAcidLL.getLinkedListLength(AminoAcidLL.createFromRNASequence(inCodon)));
+
+    // ** Testing the aminoAcidCompare() method
+    //AminoAcidLL list1 = createFromRNASequence(inCodon);
+    //AminoAcidLL list2 = createFromRNASequence(inCodon2);
+    //System.out.print(list1.aminoAcidCompare(list2));
+
+
+    // Creating list 1
+    AminoAcidLL list1 = AminoAcidLL.createFromRNASequence("CCGUUGGCACUGUUG");
+    printList(list1);
+    AminoAcidLL.sort(list1);
+
+    // Creating list 2
+    AminoAcidLL list2 = AminoAcidLL.createFromRNASequence("CCGUUGGCACUG");
+    printList(list2);
+    AminoAcidLL.sort(list2);
+
+    // DEBUG TIME
+    //System.out.print(list1.aminoAcidCompare(list2));
+    System.out.print(list1.codonDiff(list2));
+
 
   }
 
@@ -154,10 +177,53 @@ class AminoAcidLL{
    * the list *must* be sorted to use this method */
   public int aminoAcidCompare(AminoAcidLL inList){
 
-      // Sorting the given linked list
-      sort(inList);
+    // Checking if the list is sorted
+    if(!inList.isSorted()) {
+      return -1;
+    }
 
-      return 0;
+    // Creating a variable that will store the difference in counts
+    int difference = 0;
+
+    // If inList is NULL, increment the total count
+    if(inList == null) {
+      difference += totalCount();
+    }
+
+    // If next is not equal to NULL, make a recursive call
+    if(next != null) {
+      difference += next.aminoAcidCompare(inList.next);
+    }
+
+    // If the aminoAcid match, subtract the difference in counts and stored to the difference
+    else if(aminoAcid == inList.aminoAcid) {
+      difference += totalDiff(inList);
+
+      if(next != null) {
+        difference += next.aminoAcidCompare(inList.next);
+      }
+
+      if(next == null && inList.next != null) {
+        difference += aminoAcidCompare(inList.next);
+      }
+
+    // Else if the class list is shorter than the list comparing to; calculate the difference and store
+    } else if(next != null && aminoAcid < inList.aminoAcid) {
+      difference += totalCount();
+
+      if(next != null) {
+        difference += next.aminoAcidCompare(inList);
+      }
+
+      // Else if the class list is longer than the list comparing to; calculate the difference and store
+    } else if(next == null || aminoAcid > inList.aminoAcid) {
+      difference += inList.totalCount();
+
+      if(inList.next != null) {
+        difference += aminoAcidCompare(inList.next);
+      }
+    }
+      return difference;
   }
 
   /********************************************************************************************/
@@ -165,10 +231,53 @@ class AminoAcidLL{
    * Must be sorted. */
   public int codonCompare(AminoAcidLL inList){
 
-      // Sorting the given linked list
-      sort(inList);
+    // Checking if the list is sorted
+    if(!inList.isSorted()) {
+      return -1;
+    }
 
-      return 0;
+    // Creating a variable that will store the difference in counts
+    int difference = 0;
+
+    // If inList is NULL, increment the total count
+    if(inList == null) {
+      difference += totalCount();
+    }
+
+    // If next is not equal to NULL, make a recursive call
+    if(next != null) {
+      difference += next.codonCompare(inList.next);
+    }
+
+    // If the aminoAcid match, subtract the difference in counts and stored to the difference
+    else if(aminoAcid == inList.aminoAcid) {
+      difference += codonDiff(inList);
+
+      if(next != null) {
+        difference += next.codonCompare(inList.next);
+      }
+
+      if(next == null && inList.next != null) {
+        difference += codonCompare(inList.next);
+      }
+
+      // Else if the class list is shorter than the list comparing to; calculate the difference and store
+    } else if(next != null && aminoAcid < inList.aminoAcid) {
+      difference += totalCount();
+
+      if(next != null) {
+        difference += next.codonCompare(inList);
+      }
+
+      // Else if the class list is longer than the list comparing to; calculate the difference and store
+    } else if(next == null || aminoAcid > inList.aminoAcid) {
+      difference += inList.totalCount();
+
+      if(inList.next != null) {
+        difference += codonCompare(inList.next);
+      }
+    }
+    return difference;
   }
 
 
@@ -320,7 +429,6 @@ class AminoAcidLL{
         head.addCodon(inSequence.substring(i, i + 3));
       }
     }
-    //tempHead = head;
     return head;
   }
 
@@ -368,6 +476,7 @@ class AminoAcidLL{
         current = current.next;
       }
 
+      // Swapping the pointers and putting into place
       newNode.next = current.next;
       current.next = newNode;
     }
