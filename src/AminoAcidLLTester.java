@@ -94,13 +94,27 @@ public class AminoAcidLLTester {
 
     @Test
     // TESTING CODON SEQUENCE #1: CCGUUGGCACUGUUG
-    // COMPARING TO SEQUENCE: ---
-    // EXPECTED RESULT: ---
-    // TEST: ---
+    // LINKED LIST OF SEQUENCE #1: P -> L -> A
+    // COMPARING TO SEQUENCE: CCGUUGGCA
+    // LINKED LIST OF SEQUENCE COMPARING TO: P -> L -> A
+    // EXPECTED RESULT: 0
+    // TEST: PASSED
     // TEST DESCRIPTION: Ensure that the codonCompare() method functions correctly
     public void test_5_sequence_1() {
-        String inCodon = "CCGUUGGCACUGUUG";
-        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
+
+        // Creating list 1 and sorting it
+        AminoAcidLL list1 = AminoAcidLL.createFromRNASequence("CCGUUGGCACUGUUG");
+        AminoAcidLL.sort(list1);
+
+        // Creating list 2 and sorting it
+        AminoAcidLL list2 = AminoAcidLL.createFromRNASequence("CCGUUGGCA");
+        AminoAcidLL.sort(list2);
+
+        // Expected counts
+        int expectedCounts = 0;
+
+        // Testing that the counts match expected result
+        assertEquals(expectedCounts, list1.codonCompare(list2));
     }
 
     @Test
@@ -191,13 +205,26 @@ public class AminoAcidLLTester {
 
     @Test
     // TESTING CODON SEQUENCE #2: GCUACGGAGCUUCGGAGCUAG
-    // COMPARING TO SEQUENCE: ---
-    // EXPECTED RESULT: ---
-    // TEST: ---
+    // LINKED LIST OF SEQUENCE #2: A -> T -> E -> L -> R -> S -> STOP (*)
+    // COMPARING TO SEQUENCE: GCUACGGAGCUUCGGAGCUAG
+    // LINKED LIST OF SEQUENCE COMPARING TO: A -> T -> E -> L -> R -> S -> STOP (*)
+    // EXPECTED RESULT: 2
+    // TEST: PASSED
     // TEST DESCRIPTION: Ensure that the codonCompare() method functions correctly with a more complex sequence
     public void test_10_sequence_2() {
-        String inCodon = "GCUACGGAGCUUCGGAGCUAG";
-        AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
-    }
 
+        // Creating list 1 and sorting it
+        AminoAcidLL list1 = AminoAcidLL.createFromRNASequence("GCUACGGAGCUUCGGAGCUAG");
+        AminoAcidLL.sort(list1);
+
+        // Creating list 2 and sorting it
+        AminoAcidLL list2 = AminoAcidLL.createFromRNASequence("GCUACGGAGCUUCGGAGCCCGCCGAAGUAG");
+        AminoAcidLL.sort(list2);
+
+        // Expected counts
+        int expectedCounts = 2;
+
+        // Testing that the counts match expected result
+        assertEquals(expectedCounts, list1.codonCompare(list2));
+    }
 }

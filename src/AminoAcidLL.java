@@ -1,63 +1,6 @@
 import java.util.Arrays;
 
 class AminoAcidLL{
-  public static void main(String[] args){
-
-    // ** TESTING CODON SEQUENCE #1: CCGUUGGCACUGUUG **
-    String inCodon = "CCGUUGGCACUGUUG";
-    String inCodon2 = "CCGUUGGCACUGUUG";
-    String inCodon3 = "GCUACGGAGCUUCGGAGCUAG";
-    //AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon3));
-    //AminoAcidLL.createFromRNASequence(inCodon);
-
-    // ** Testing totalCounts() method **
-    //AminoAcidLL.printList(AminoAcidLL.createFromRNASequence(inCodon));
-    //AminoAcidLL.createFromRNASequence(inCodon);
-    //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).totalCount());
-
-    // ** Testing aminoAcidList() method **
-    //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidList();
-    //System.out.print(AminoAcidLL.createFromRNASequence(inCodon3).aminoAcidList());
-
-    // ** Testing aminoAcidCounts() method **
-    //AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts();
-    //System.out.print(Arrays.toString(AminoAcidLL.createFromRNASequence(inCodon).aminoAcidCounts()));
-
-    // ** Testing the isSorted() method **
-    //AminoAcidLL.createFromRNASequence(inCodon).isSorted();
-    //System.out.print(AminoAcidLL.createFromRNASequence(inCodon).isSorted());
-
-    // ** Testing the sort() method **
-    //AminoAcidLL listToBeSorted = AminoAcidLL.createFromRNASequence(inCodon3);
-    //printList(sort(listToBeSorted));
-    //System.out.print(AminoAcidLL.sort(listToBeSorted));
-    //AminoAcidLL.createFromRNASequence(inCodon).isSorted();
-
-    // ** Testing the getLinkedListLength() method **
-    //System.out.print(AminoAcidLL.getLinkedListLength(AminoAcidLL.createFromRNASequence(inCodon)));
-
-    // ** Testing the aminoAcidCompare() method
-    //AminoAcidLL list1 = createFromRNASequence(inCodon);
-    //AminoAcidLL list2 = createFromRNASequence(inCodon2);
-    //System.out.print(list1.aminoAcidCompare(list2));
-
-
-    // Creating list 1
-    AminoAcidLL list1 = AminoAcidLL.createFromRNASequence("CCGUUGGCACUGUUG");
-    printList(list1);
-    AminoAcidLL.sort(list1);
-
-    // Creating list 2
-    AminoAcidLL list2 = AminoAcidLL.createFromRNASequence("CCGUUGGCACUG");
-    printList(list2);
-    AminoAcidLL.sort(list2);
-
-    // DEBUG TIME
-    //System.out.print(list1.aminoAcidCompare(list2));
-    System.out.print(list1.codonDiff(list2));
-
-
-  }
 
   // ** Creating a sorted node and head node to aid when sorting the linked list **
   public static AminoAcidLL sorted;
@@ -134,7 +77,6 @@ class AminoAcidLL{
     }
   }
 
-
   /********************************************************************************************/
   /* Shortcut to find the total number of instances of this amino acid */
   private int totalCount(){
@@ -146,7 +88,6 @@ class AminoAcidLL{
     for(int i = 0; i < codons.length; i++) {
       total += counts[i];
     }
-
     return total;
   }
 
@@ -158,7 +99,6 @@ class AminoAcidLL{
     return Math.abs(totalCount() - inList.totalCount());
 
   }
-
 
   /********************************************************************************************/
   /* helper method for finding the list difference on two matching nodes
@@ -279,7 +219,6 @@ class AminoAcidLL{
     }
     return difference;
   }
-
 
   /********************************************************************************************/
   /* Recursively returns the total list of amino acids in the order that they are in in the linked list. */
@@ -505,5 +444,4 @@ class AminoAcidLL{
     // Count is 1 plus the rest of the list (recursive calls)
     return 1 + getLinkedListLength(head.next);
   }
-
 }
